@@ -24,7 +24,7 @@ interface ChatStore {
   getMessagesForUser: (userId: string) => Message[];
 }
 
-const baseURL =  import.meta.env.MODE === "development" ? ("http://localhost:5001") : ("/");
+const baseURL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "/";
 
 const socket = io(baseURL, {
   autoConnect: false,
