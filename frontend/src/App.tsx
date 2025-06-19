@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/sso-callback" element={<AuthenticateWithRedirectCallback signInForceRedirectUrl={"/auth-callback"} />} />
         <Route path="/auth-callback" element={<AuthCallbackPage />} />
-        <Route path="/admin/" element={<AdminPage />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
