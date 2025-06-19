@@ -4,9 +4,9 @@ import { protectRoute } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
-router.use(protectRoute); // Calls these functions on each route 
+router.use(protectRoute);
 
 router.get("/", getAllUsers);
-router.get("/messages/:userId", getMessages); 
+router.get("/messages/:otherUserId", getMessages); // rename param to match controller
 
 export default router;
