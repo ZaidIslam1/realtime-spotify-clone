@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { axiosInstance } from "@/lib/axios";
+import { useMusicStore } from "@/stores/useMusicStore";
 import { Plus, Upload } from "lucide-react";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -18,6 +19,7 @@ const AddAlbumDialog = () => {
     const [albumDialogOpen, setAlbumDialogOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const { fetchAlbums } = useMusicStore(); // add this
 
     const [newAlbum, setNewAlbum] = useState({
         title: "",
@@ -53,6 +55,8 @@ const AddAlbumDialog = () => {
                     "Content-Type": "multipart/form-data",
                 },
             });
+
+            await fetchAlbums(); // 👈 refresh albums in store
 
             setNewAlbum({
                 title: "",
