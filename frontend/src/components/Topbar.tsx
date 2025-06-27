@@ -11,11 +11,10 @@ const Topbar = () => {
     return (
         <div className="flex items-center justify-between p-4 sticky top-0 bg-zinc-900/75 backdrop-blur-md z-10 rounded-md">
             <div className="flex gap-2 items-center font-semibold">
-                <Link to="/" className="flex items-center space-x-3 rounded-lg cursor-pointer">
-                    <img src="/spotify.png" className="h-8 w-8 object-contain" alt="Spotify logo" />
-                    <span className="text-white text-lg font-semibold">Spotify</span>
+                <Link to="/" className="flex items-center gap-2 rounded-lg cursor-pointer">
+                    <img src="/spotify.png" className="size-8" alt="Spotify logo" />
                 </Link>
-
+                <span>Spotify</span>
             </div>
             <div className="flex items-center gap-4">
                 {isAdmin && (
