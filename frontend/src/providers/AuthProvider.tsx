@@ -1,4 +1,4 @@
-import { axiosInstance, injectTokenGetter } from "@/lib/axios";
+import { injectTokenGetter } from "@/lib/axios";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useChatStore } from "@/stores/useChatStore";
 import { useAuth } from "@clerk/clerk-react";
