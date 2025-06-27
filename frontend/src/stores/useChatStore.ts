@@ -116,8 +116,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
         });
         };
 
-
-        socket.on("receive_message", appendMessage);
+      socket.on("receive_message", appendMessage);
       socket.on("message_sent", appendMessage);
 
       socket.on("activity_updated", ({ userId, activity }) => {

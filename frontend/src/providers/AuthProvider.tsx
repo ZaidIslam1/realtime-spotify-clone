@@ -1,14 +1,9 @@
-import { axiosInstance } from "@/lib/axios";
+import { axiosInstance, injectTokenGetter } from "@/lib/axios";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useChatStore } from "@/stores/useChatStore";
 import { useAuth } from "@clerk/clerk-react";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
-
-const updateApiToken = (token: string | null) => {
-    if (token) axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    else delete axiosInstance.defaults.headers.common["Authorization"];
-};
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const { getToken, userId } = useAuth();
@@ -17,18 +12,18 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const { initSocket, disconnectSocket } = useChatStore();
 
     useEffect(() => {
+        // Inject the token getter into axios so it can fetch a fresh one on each request
+        injectTokenGetter(getToken);
+
         const initAuth = async () => {
             try {
                 const token = await getToken();
-                updateApiToken(token);
                 if (token) {
-                    await checkAdminStatus();
-                    // init socket
-                    if (userId) initSocket(userId);
+                    await checkAdminStatus(); // verify if user is admin
+                    if (userId) initSocket(userId); // connect socket with userId
                 }
             } catch (error: any) {
-                updateApiToken(null);
-                console.log("Error in auth provider", error);
+                console.error("Error in AuthProvider:", error);
             } finally {
                 setLoading(false);
             }
@@ -36,17 +31,18 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         initAuth();
 
-        // clean up
-        return () => disconnectSocket();
+        return () => disconnectSocket(); // cleanup socket on unmount
     }, [getToken, userId, checkAdminStatus, initSocket, disconnectSocket]);
 
-    if (loading)
+    if (loading) {
         return (
-            <div className='h-screen w-full flex items-center justify-center'>
-                <Loader className='size-8 text-emerald-500 animate-spin' />
+            <div className="h-screen w-full flex items-center justify-center">
+                <Loader className="size-8 text-emerald-500 animate-spin" />
             </div>
         );
+    }
 
     return <>{children}</>;
 };
+
 export default AuthProvider;

@@ -19,7 +19,7 @@ const AdminPage = () => {
   }, [fetchAlbums, fetchSongs, fetchStats]);
 
   if (!isAdmin && error) {
-    <div className="p-4 text-red-500">{error}</div>
+    return <div className="p-4 text-red-500">{error}</div>
   }
   return (
     <div className='min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900 to-black text-zinc-100 p-8'>
