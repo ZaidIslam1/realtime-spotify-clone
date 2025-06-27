@@ -11,9 +11,9 @@ const Topbar = () => {
     return (
         <div className="flex items-center justify-between p-4 sticky top-0 bg-zinc-900/75 backdrop-blur-md z-10 rounded-md">
             <div className="flex gap-2 items-center font-semibold">
-                <Link to="/" className="flex rounded-lg cursor-pointer">
+                <Link to="/" className="flex items-center gap-2 rounded-lg cursor-pointer">
                     <img src="/spotify.png" className="size-8" alt="Spotify logo" />
-                    Spotify
+                    <span>Spotify</span>
                 </Link>
             </div>
             <div className="flex items-center gap-4">
